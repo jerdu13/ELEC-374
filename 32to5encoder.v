@@ -1,4 +1,4 @@
-module 32_to_5_encoder(output reg [4:0] Code, input [7,0] input [32: 0] Data);
+module 32_to_5_encoder(output wire [4:0] Code, input wire [32: 0] Data);
 	always @ (Data)
 	begin
 		if (Data == 32h'1) Code = 0; else
