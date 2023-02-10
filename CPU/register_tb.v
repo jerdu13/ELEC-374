@@ -28,7 +28,7 @@ module testbench();
 		$display("Register data: %h", Q);
 		
 		#100;
-		clr = 0;
+		clr = 1;
 		
 		#100;
 		$display("Cleared register data: %h", Q);
