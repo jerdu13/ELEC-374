@@ -1,29 +1,154 @@
-module 32_to_5_encoder(output wire [4:0] Code, input wire [32: 0] Data);
-	always @ (Data)
+module 32_to_5_encoder(
+	input [31:0] R0out, R1out, R2out, R3out, R4out, R5out, R6out, R7out, R8out, R9out,
+			R10out, R11out, R12out, R13out, R14out, R15out, HIout, LOout, Zhighout,
+			Zlowout, PCout, MDRout, InPortout, Cout,
+	output [4:0] S0, S1, S2, S3, S4
+	);
+			
+		
+	always @ (R0out, R1out, R2out, R3out, R4out, R5out, R6out, R7out, R8out, R9out,
+			R10out, R11out, R12out, R13out, R14out, R15out, HIout, LOout, Zhighout,
+			Zlowout, PCout, MDRout, InPortout, Cout)
 	begin
-		if (Data == 32h'1) Code = 0; else
-		if (Data == 32h'2) Code = 1; else
-		if (Data == 32h'4) Code = 2; else
-		if (Data == 32h'8) Code = 3; else
-		if (Data == 32h'10) Code = 4; else
-		if (Data == 32h'20) Code = 5; else
-		if (Data == 32h'40) Code = 6; else
-		if (Data == 32h'80) Code = 8; else
-		if (Data == 32h'100) Code = 9; else
-		if (Data == 32h'200) Code = 10; else
-		if (Data == 32h'400) Code = 11; else
-		if (Data == 32h'800) Code = 12; else
-		if (Data == 32h'1000) Code = 13; else
-		if (Data == 32h'2000) Code = 14; else
-		if (Data == 32h'4000) Code = 15; else
-		if (Data == 32h'8000) Code = 16; else
-		if (Data == 32h'10000) Code = 17; else
-		if (Data == 32h'20000) Code = 18; else
-		if (Data == 32h'40000) Code = 19; else
-		if (Data == 32h'80000) Code = 20; else
-		if (Data == 32h'100000) Code = 21; else
-		if (Data == 32h'200000) Code = 22; else
-		if (Data == 32h'400000) Code = 23; else Code = 32'bx;
+		if (R0out == 1) begin 
+			S4 <= 0;
+			S3 <= 0;
+			S2 <= 0;
+			S1 <= 0;
+			S0 <= 0;
+		end else if (R1out == 1) begin
+			S4 <= 0;
+			S3 <= 0;
+			S2 <= 0;
+			S1 <= 0;
+			S0 <= 1;
+		end else if (R2out == 1) begin
+			S4 <= 0;
+			S3 <= 0;
+			S2 <= 0;
+			S1 <= 1;
+			S0 <= 0;
+		end else if (R3out == 1) begin
+			S4 <= 0;
+			S3 <= 0;
+			S2 <= 0;
+			S1 <= 1;
+			S0 <= 1;
+		end else if (R4out == 1) begin
+			S4 <= 0;
+			S3 <= 0;
+			S2 <= 1;
+			S1 <= 0;
+			S0 <= 0;
+		end else if (R5out == 1) begin
+			S4 <= 0;
+			S3 <= 0;
+			S2 <= 1;
+			S1 <= 0;
+			S0 <= 1;
+		end else if (R6out == 1) begin
+			S4 <= 0;
+			S3 <= 0;
+			S2 <= 1;
+			S1 <= 1;
+			S0 <= 0;
+		end else if (R7out == 1) begin
+			S4 <= 0;
+			S3 <= 0;
+			S2 <= 1;
+			S1 <= 1;
+			S0 <= 1;
+		end else if (R8out == 1) begin
+			S4 <= 0;
+			S3 <= 1;
+			S2 <= 0;
+			S1 <= 0;
+			S0 <= 0;
+		end else if (R9out == 1) begin
+			S4 <= 0;
+			S3 <= 1;
+			S2 <= 0;
+			S1 <= 0;
+			S0 <= 1;
+		end else if (R10out == 1) begin
+			S4 <= 0;
+			S3 <= 1;
+			S2 <= 0;
+			S1 <= 1;
+			S0 <= 0;
+		end else if (R11out == 1) begin
+			S4 <= 0;
+			S3 <= 1;
+			S2 <= 0;
+			S1 <= 1;
+			S0 <= 1;
+		end else if (R12out == 1) begin
+			S4 <= 0;
+			S3 <= 1;
+			S2 <= 1;
+			S1 <= 0;
+			S0 <= 0;
+		end else if (R13out == 1) begin
+			S4 <= 0;
+			S3 <= 1;
+			S2 <= 1;
+			S1 <= 0;
+			S0 <= 1;
+		end else if (R14out == 1) begin
+			S4 <= 0;
+			S3 <= 1;
+			S2 <= 1;
+			S1 <= 1;
+			S0 <= 0;
+		end else if (R15out == 1) begin
+			S4 <= 0;
+			S3 <= 1;
+			S2 <= 1;
+			S1 <= 1;
+			S0 <= 1;
+		end else if (HIout == 1) begin
+			S4 <= 1;
+			S3 <= 0;
+			S2 <= 0;
+			S1 <= 0;
+			S0 <= 0;
+		end else if (LOout == 1) begin
+			S4 <= 1;
+			S3 <= 0;
+			S2 <= 0;
+			S1 <= 0;
+			S0 <= 1;
+		end else if (Zhighout == 1) begin
+			S4 <= 1;
+			S3 <= 0;
+			S2 <= 0;
+			S1 <= 1;
+			S0 <= 0;
+		end else if (Zlowout == 1) begin
+			S4 <= 1;
+			S3 <= 0;
+			S2 <= 0;
+			S1 <= 1;
+			S0 <= 1;
+		end else if (MDRout == 1) begin
+			S4 <= 1;
+			S3 <= 0;
+			S2 <= 1;
+			S1 <= 0;
+			S0 <= 0;
+		end else if (Inportout == 1) begin
+			S4 <= 1;
+			S3 <= 0;
+			S2 <= 1;
+			S1 <= 0;
+			S0 <= 1;
+		end else if (Cout == 1) begin
+			S4 <= 1;
+			S3 <= 0;
+			S2 <= 1;
+			S1 <= 1;
+			S0 <= 0;
+		else Code = 1'bx;
 		
 		//THE SIGNALS BELOW ARE NOT NEEDED, GIVEN WE ONLY HAVE 24 REGISTERS
 		//if (Data == h'800000) Code = 24; else
