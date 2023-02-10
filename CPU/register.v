@@ -2,10 +2,10 @@ module register(input wire clr, clk, wrt_enable, input wire [31:0] D, output wir
 	
 	always @(posedge clk) begin
 		if(wrt_enable)
-			Q = D;
+			Q <= D;
 	end
 	
 	always @(clr) begin
-		Q = 32'b0;
+		Q <= 0;
 	end
 endmodule
