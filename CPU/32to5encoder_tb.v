@@ -1,85 +1,85 @@
 `timescale 1ns/10ps
-module 32to5encoder_tb;
+module _32to5encoder_tb();
 
 	reg[31:0] input_wires;
 	
 	wire[4:0] encoded_result;
 	
-	32_to_5_encoder encoder(input_wires, encoded_result);
+	_32to5encoder encoder(input_wires, encoded_result);
 	
 	initial
 		begin
-		#200
-			input_wires <= 32h1;
+		#100
+			input_wires <= 32'h1;
 			
-		#200 
-			input_wires <= 32h2;
+		#100 
+			input_wires <= 32'h2;
 			
-		#200 
-			input_wires <= 32h4;	
+		#100 
+			input_wires <= 32'h4;	
 			
-		#200 
-			input_wires <= 32h8;
+		#100 
+			input_wires <= 32'h8;
 			
-		#200
-			input_wires <= 32h10;
+		#100
+			input_wires <= 32'h10;
 			
-		#200 
-			input_wires <= 32h20;
+		#100 
+			input_wires <= 32'h20;
 			
-		#200 
-			input_wires <= 32h40;	
+		#100 
+			input_wires <= 32'h40;	
 			
-		#200 
-			input_wires <= 32h80;
+		#100 
+			input_wires <= 32'h80;
 			
-		#200
-			input_wires <= 32h100;
+		#100
+			input_wires <= 32'h100;
 			
-		#200 
-			input_wires <= 32h200;
+		#100 
+			input_wires <= 32'h200;
 			
-		#200 
-			input_wires <= 32h400;	
+		#100 
+			input_wires <= 32'h400;	
 			
-		#200 
-			input_wires <= 32h800;
+		#100 
+			input_wires <= 32'h800;
 			
-		#200
-			input_wires <= 32h1000;
+		#100
+			input_wires <= 32'h1000;
 			
-		#200 
-			input_wires <= 32h2000;
+		#100 
+			input_wires <= 32'h2000;
 			
-		#200 
-			input_wires <= 32h4000;	
+		#100 
+			input_wires <= 32'h4000;	
 			
-		#200 
-			input_wires <= 32h8000;
+		#100 
+			input_wires <= 32'h8000;
 		
-		#200
-			input_wires <= 32h10000;
+		#100
+			input_wires <= 32'h10000;
 			
-		#200 
-			input_wires <= 32h20000;
+		#100 
+			input_wires <= 32'h20000;
 			
-		#200 
-			input_wires <= 32h40000;	
+		#100 
+			input_wires <= 32'h40000;	
 			
-		#200 
-			input_wires <= 32h80000;
+		#100 
+			input_wires <= 32'h80000;
 		
-		#200
-			input_wires <= 32h100000;
+		#100
+			input_wires <= 32'h100000;
 			
-		#200 
-			input_wires <= 32h200000;
+		#100 
+			input_wires <= 32'h200000;
 			
-		#200 
-			input_wires <= 32h400000;	
+		#100 
+			input_wires <= 32'h400000;	
 			
-		#200 
-			input_wires <= 32h800000; //invalid case
+		#100 
+			input_wires <= 32'h800000; //invalid case
 			
 		end
 	

@@ -1,14 +1,14 @@
-module 32_to_5_encoder(
+module _32to5encoder(
 	input [31:0] R0out, R1out, R2out, R3out, R4out, R5out, R6out, R7out, R8out, R9out,
 			R10out, R11out, R12out, R13out, R14out, R15out, HIout, LOout, Zhighout,
-			Zlowout, PCout, MDRout, InPortout, Cout,
-	output [4:0] S0, S1, S2, S3, S4
+			Zlowout, PCout, MDRout, Inportout, Cout,
+	output reg [4:0] S0, S1, S2, S3, S4
 	);
 			
 		
 	always @ (R0out, R1out, R2out, R3out, R4out, R5out, R6out, R7out, R8out, R9out,
 			R10out, R11out, R12out, R13out, R14out, R15out, HIout, LOout, Zhighout,
-			Zlowout, PCout, MDRout, InPortout, Cout)
+			Zlowout, PCout, MDRout, Inportout, Cout)
 	begin
 		if (R0out == 1) begin 
 			S4 <= 0;
@@ -148,7 +148,13 @@ module 32_to_5_encoder(
 			S2 <= 1;
 			S1 <= 1;
 			S0 <= 0;
-		else Code = 1'bx;
+		end else begin
+			S4 = 'bx;
+			S3 = 'bx;
+			S2 = 'bx;
+			S1 = 'bx;
+			S0 = 'bx;
+		end
 		
 		//THE SIGNALS BELOW ARE NOT NEEDED, GIVEN WE ONLY HAVE 24 REGISTERS
 		//if (Data == h'800000) Code = 24; else
