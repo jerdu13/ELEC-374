@@ -3,16 +3,16 @@ module full_bus(
 						R10out, R11out, R12out, R13out, R14out, R15out, HIout, LOout, Zhighout,
 						Zlowout, PCout, MDRout, Inportout, Cout,
 			
-	input wire [31:0] 	mux_in_r0, mux_in_r1, mux_in_r2, mux_in_r3, mux_in_r4, mux_in_r5, mux_in_r5, mux_in_r6, mux_in_r7,
+	input wire [31:0] 	mux_in_r0, mux_in_r1, mux_in_r2, mux_in_r3, mux_in_r4, mux_in_r5, mux_in_r6, mux_in_r7,
 						mux_in_r8, mux_in_r9, mux_in_r10, mux_in_r11, mux_in_r12, mux_in_r13, mux_in_r14, mux_in_r15, 
 						mux_in_HI, mux_in_LO, mux_in_Z_high, mux_in_Z_low, mux_in_PC, mux_in_MDR, mux_in_inport, C_sign_extended,
 	
-	output wire [31:0] bus_out;
+	output wire [31:0] bus_out
 	);
 			
-	wire [4:0] select;
+	reg [4:0] select;
 	
-	reg [31:0] bus_out;
+	reg [31:0] mux_out;
 	assign bus_out = mux_out;
 		
 	always @ (R0out, R1out, R2out, R3out, R4out, R5out, R6out, R7out, R8out, R9out,
@@ -66,11 +66,7 @@ module full_bus(
 		end else if (Cout == 1) begin
 			select <= 5'b10110;
 		end else begin
-			S4 = 5'bx;
-			S3 = 5'bx;
-			S2 = 5'bx;
-			S1 = 5'bx;
-			S0 = 5'bx;
+			select <= 5'bxxxxx;
 		end
 		
 	end
