@@ -48,4 +48,4 @@ begin
 		quotient <= result[31:0];
 		remainder <= result[63:32];
 	end
-end
+endmodule
