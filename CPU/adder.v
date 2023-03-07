@@ -1,3 +1,5 @@
+// uses the hierarchical adder structure from the slides
+// if carry_out is 1, then an overflow occured
 module adder_32(input wire [31:0] a, b, input wire carry_in, output wire [31:0] result, output wire carry_out);
 	wire carry_low;
 	
