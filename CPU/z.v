@@ -10,7 +10,7 @@ begin
 	end
 	
 	always @ (posedge clr) begin
-		z_hi <= 32'b00000000000000000000000000000000;
-		z_lo <= 32'b00000000000000000000000000000000;
+		z_hi <= 32'b0;
+		z_lo <= 32'b0;
 	end
 endmodule

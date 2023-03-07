@@ -1,6 +1,6 @@
 module pc(input wire clr, clk, wrt_enable, pcInc, input wire [31:0] D, output reg [31:0] Q);
 begin
-	initial Q = 32'b00000000000000000000000000000000;
+	initial Q = 32'b0;
 	
 	always @ (posedge clk) begin
 		if (pcInc == 1)
@@ -10,6 +10,6 @@ begin
 	end
 	
 	always @ (posedge clr) begin
-		Q <= 32'b00000000000000000000000000000000;
+		Q <= 32'b0;
 	end
 endmodule
