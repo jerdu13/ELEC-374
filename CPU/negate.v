@@ -1,6 +1,5 @@
 // to negate, we do a bit-wise not, then add one to obtain the resulting two's compliment
 module negate(input wire [31:0] a, output wire [31:0] result);
-begin
 	wire [31:0] not_a;
 	wire [31:0] one;
 	wire carry_in;

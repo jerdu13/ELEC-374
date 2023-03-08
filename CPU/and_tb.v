@@ -118,7 +118,7 @@ always @(Present_state) // do the required job in each state
 			end
 
 			T4: begin
-				R3out <= 1; AND <= 1; Zin <= 1;
+				R3out <= 1; OP <= 5'b00101; Zin <= 1;
 			end
 
 			T5: begin

@@ -11,12 +11,11 @@ module cpu(input 	R0_enable, R1_enable, R2_enable, R3_enable, R4_enable, R5_enab
 					
 			input [31:0] Mdatain,
 			input [4:0] op_code,
-			output [31:0] busmuxout
+			output [31:0] busmuxout,
 			output R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, IR,
 			output [63:0] Z_register
 					
 					);
-begin
 	
 	wire clr;
 	wire IR_out;
@@ -94,7 +93,7 @@ begin
 	// memort address register
 	register mar(clk, clr, MAR_enable, bus_out, mux_in_MAR);
 	
-	alu arithmetic(bus_out, bus_out, Y_data, Mdatain[31:27], Z
+	alu arithmetic(bus_out, bus_out, Y_data, Mdatain[31:27], Z_register)
 	
 	
 endmodule

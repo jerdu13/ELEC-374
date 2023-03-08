@@ -1,15 +1,17 @@
 // non restoring
 module divider(input signed [31:0] a, b, output reg [31:0] quotient, remainder);
-begin
 	reg [63:0] result;
 	reg [31:0] M;
-	result <= {32'b0, a[31:0]};
-	M <= b;
+	
+	
 	
 	reg [1:0] negative_operands;
 	integer i;
 	
 	always @(*) begin
+		result <= 64'b0 | a[31:0];
+		M <= b;
+		
 		if (a < 0 && b < 0) begin
 			negative_operands <= 2'b11;
 			M <= ~M + 1;
@@ -25,7 +27,7 @@ begin
 		end
 		
 		
-		for (i = 0; i < 32; i + 1) begin
+		for (i = 0; i < 32; i = i + 1) begin
 			result <= result << 1;
 			
 			if (result[63:32] >= 0)

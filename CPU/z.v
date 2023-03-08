@@ -1,5 +1,4 @@
 module z(input wire clr, clk, wrt_enable, hi_enable, lo_enable, input wire [63:0] D, output reg [31:0] z_hi, z_lo);
-begin
 	always @ (posedge clk) begin
 		if (wrt_enable == 1) begin
 			if (hi_enable == 1)

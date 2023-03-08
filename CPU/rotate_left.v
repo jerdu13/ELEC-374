@@ -1,5 +1,4 @@
 module rotate_left(input wire [31:0] a, b, output reg [31:0] result);
-begin
 	reg [4:0] bits;
 	
 	always @(*) begin
@@ -71,4 +70,7 @@ begin
 				result <= {a[0],a[31:1]};
 			default:
 				result <= 32'bx;	
+		endcase
+	end
+		
 endmodule
