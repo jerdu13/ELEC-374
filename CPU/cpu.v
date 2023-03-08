@@ -93,7 +93,7 @@ module cpu(input 	R0_enable, R1_enable, R2_enable, R3_enable, R4_enable, R5_enab
 	// memort address register
 	register mar(clk, clr, MAR_enable, bus_out, mux_in_MAR);
 	
-	alu arithmetic(bus_out, bus_out, Y_data, Mdatain[31:27], Z_register)
+	alu arithmetic(bus_out, bus_out, Y_data, Mdatain[31:27], Z_register);
 	
 	
 endmodule

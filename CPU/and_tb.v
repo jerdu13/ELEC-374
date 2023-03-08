@@ -3,19 +3,13 @@
 module datapath_tb;
 	reg R1in, R2in, R3in, R4in, R5in, R6in, R7in, R8in, R9in, R10in, R11in, R12in, R13in, R14in, R15in;
 	reg R1out, R2out, R3out, R4out, R5out, R6out, R7out, R8out, R9out, R10out, R11out, R12out, R13out, R14out, R15out;
-	reg PCin, HIin LOin, ZHIin ZLOin, MDRin Inportin, Cin, IRin, Yin, MARin;
-	reg PCout, HIout, LOout, ZHIout, ZLOout, MDRout, Inportout, Cout,
+	reg PCin, HIin, LOin, ZHIin, ZLOin, MDRin, Inportin, Cin, IRin, Yin, MARin;
+	reg PCout, HIout, LOout, ZHIout, ZLOout, MDRout, Inportout, Cout;
 	reg clk, MDRread, IncPC;
 	reg [4:0] OP;
 	reg [31:0] MDatain;
-	reg [31:0] BusMuxOut
+	reg [31:0] BusMuxOut;
 	
-	reg PCout, Zlowout, MDRout, R2out, R3out; // add any other signals to see in your simulation
-	reg MARin, Zin, PCin, MDRin, IRin, Yin;
-	reg IncPC, Read, AND, R1in, R2in, R3in;
-	reg Clock;
-	reg [31:0] Mdatain;
-	reg [63:0] Zreg;
 	
 	parameter 	Default = 4’b0000, Reg_load1a = 4’b0001, Reg_load1b = 4’b0010, Reg_load2a = 4’b0011,
 					Reg_load2b = 4’b0100, Reg_load3a = 4’b0101, Reg_load3b = 4’b0110, T0 = 4’b0111,
