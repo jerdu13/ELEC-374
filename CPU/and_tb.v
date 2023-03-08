@@ -1,19 +1,39 @@
 // and datapath_tb.v file: <This is the filename>
 `timescale 1ns/10ps
 module datapath_tb;
+	reg R1in, R2in, R3in, R4in, R5in, R6in, R7in, R8in, R9in, R10in, R11in, R12in, R13in, R14in, R15in;
+	reg R1out, R2out, R3out, R4out, R5out, R6out, R7out, R8out, R9out, R10out, R11out, R12out, R13out, R14out, R15out;
+	reg PCin, HIin LOin, ZHIin ZLOin, MDRin Inportin, Cin, IRin, Yin, MARin;
+	reg PCout, HIout, LOout, ZHIout, ZLOout, MDRout, Inportout, Cout,
+	reg clk, MDRread, IncPC;
+	reg [4:0] OP;
+	reg [31:0] MDatain;
+	reg [31:0] BusMuxOut
+	
 	reg PCout, Zlowout, MDRout, R2out, R3out; // add any other signals to see in your simulation
 	reg MARin, Zin, PCin, MDRin, IRin, Yin;
 	reg IncPC, Read, AND, R1in, R2in, R3in;
 	reg Clock;
 	reg [31:0] Mdatain;
+	reg [63:0] Zreg;
 	
 	parameter 	Default = 4’b0000, Reg_load1a = 4’b0001, Reg_load1b = 4’b0010, Reg_load2a = 4’b0011,
 					Reg_load2b = 4’b0100, Reg_load3a = 4’b0101, Reg_load3b = 4’b0110, T0 = 4’b0111,
 					T1 = 4’b1000, T2 = 4’b1001, T3 = 4’b1010, T4 = 4’b1011, T5 = 4’b1100;
 	reg [3:0] Present_state = Default;
 
-Datapath DUT(PCout, Zlowout, MDRout, R2out, R4out, MARin, Zin, PCin, MDRin, IRin, Yin, IncPC, Read, AND, R1in,
-R2in, R3in, Clock, Mdatain);
+cpu DUT(.R0_enable(R1in), .R1_enable(R1in), .R2_enable(R2in), .R3_enable(R3in), .R4_enable(R4in), .R5_enable(R5in), .R6_enable(R6in), .R7_enable(R7in), .R8_enable(R8in), 
+					.R9_enable(R9in), .R10_enable(R10in), .R11_enable(R11in), .R12_enable(R12in), .R13_enable(R13in), .R14_enable(R14in), .R15_enable(R15in), .HI_enable(HIin), .LO_enable(LOin),
+					.Zhigh_enable(ZHIin), .Zlow_enable(ZLOin), .PC_enable(PCin), .MDR_enable(MDRin), .Inport_enable(Inportin), .C_enable(Cin), .IR_enable(IRin), .Y_enable(Yin), .MAR_enable(MARin),
+					
+					.R0out(R0out), .R1out(R1out), .R2out(R2out), .R3out(R3out), .R4out(R4out), .R5out(R5out), .R6out(R6out), .R7out(R7out), .R8out(R8out), .R9out(R9out),
+					.R10out(R10out), .R11out(R11out), .R12out(R12out), .R13out(R13out), .R14out(R14out), .R15out(R15out), .HIout(HIout), .LOout(LOout), .Zhighout(ZHIout),
+					.Zlowout(ZLOout), .PCout(PCout), .MDRout(MDRout), .Inportout(Inportout), .Cout(Cout),
+					
+					.clk(Clock), .MDR_read(Read), .pcInc(IncPC), 
+					
+					.Mdatain(Mdatain), .op_code(OP), .busmuxout(BusMuxOut), .Z_register(Zreg));
+
 
 // add test logic here
 initial

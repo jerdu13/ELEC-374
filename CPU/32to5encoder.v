@@ -2,6 +2,7 @@ module _32to5encoder(
 	input [31:0] R0out, R1out, R2out, R3out, R4out, R5out, R6out, R7out, R8out, R9out,
 			R10out, R11out, R12out, R13out, R14out, R15out, HIout, LOout, Zhighout,
 			Zlowout, PCout, MDRout, Inportout, Cout,
+			
 	output reg [4:0] S0, S1, S2, S3, S4
 	);
 			

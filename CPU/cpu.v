@@ -1,17 +1,19 @@
 `timescale 1ns/10ps
 module cpu(input 	R0_enable, R1_enable, R2_enable, R3_enable, R4_enable, R5_enable, R6_enable, R7_enable, R8_enable, 
 					R9_enable, R10_enable, R11_enable, R12_enable, R13_enable, R14_enable, R15_enable, HI_enable, LO_enable,
-					Zhigh_enable, Zlow_enable, PC_enable, MDR_enable, Inport_enable, C_enable, IR_enable, Y_enable, Z_enable, MAR_enable,
+					Zhigh_enable, Zlow_enable, PC_enable, MDR_enable, Inport_enable, C_enable, IR_enable, Y_enable, MAR_enable,
 					
 					R0out, R1out, R2out, R3out, R4out, R5out, R6out, R7out, R8out, R9out,
 					R10out, R11out, R12out, R13out, R14out, R15out, HIout, LOout, Zhighout,
 					Zlowout, PCout, MDRout, Inportout, Cout,
 					
-					clk, MDR_read, pcInc,
-			input [31:0] Mdatain,
+					clk, MDR_read, pcInc, 
 					
-			output	R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, HI, LO, IR, Z,
-			output [31:0] BusMuxOut
+			input [31:0] Mdatain,
+			input [4:0] op_code,
+			output [31:0] busmuxout
+			output R0, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, R11, R12, R13, R14, R15, IR,
+			output [63:0] Z_register
 					
 					);
 begin
@@ -31,6 +33,7 @@ begin
 	wire [63:0] alu_C_out;
 	assign mux_in_Z_high = alu_C_out[63:32];
 	assign mux_in_Z_low = alu_C_out[31:0];
+	assign Z_register = {mux_in_Z_high, mux_in_Z_low};
 	
 	full_bus bus( 	R0out, R1out, R2out, R3out, R4out, R5out, R6out, R7out, R8out, R9out,
 					R10out, R11out, R12out, R13out, R14out, R15out, HIout, LOout, Zhighout,
