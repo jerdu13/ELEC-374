@@ -1,6 +1,7 @@
-module alu(input wire [31:0] a, b, y, input [4:0] op_code, output wire [63:0] c); //, output reg overflow);
-	reg [31:0] result_hi, result_lo;
-	reg [31:0] add_result, sub_result, add_carry, sub_carry, rotate_left_result, rotate_right_result, negate_result, divide_result_hi, divide_result_lo;
+module alu(input wire [31:0] a, b, y, input [4:0] op_code, output reg [63:0] c); //, output reg overflow);
+begin
+	wire [31:0] result_hi, result_lo;
+	wire [31:0] add_result, sub_result, add_carry, sub_carry, rotate_left_result, rotate_right_result, negate_result, divide_result_hi, divide_result_lo;
 	assign c = {result_hi, result_lo};
 	
 	adder_32 adder_circuit(y, b, 1'b0, add_result, add_carry);
@@ -37,24 +38,23 @@ module alu(input wire [31:0] a, b, y, input [4:0] op_code, output wire [63:0] c)
 				result_hi <= 32'b0;
 			end
 			5'b01000: begin // shra
-				result_lo <= y >>> b;
+				result_lo <= y >>>> b;
 				result_hi <= 32'b0;
 			end
 			5'b01001: begin // shl
 				result_lo <= y << b;
-				result_hi <= 32'b0;
+				result_hi <= 31'b0;
 			end
 			5'b01010: begin // ror
 				result_lo <= rotate_right_result;
-				result_hi <= 32'b0;
+				result_hi <= 31'b0;
 			end
 			5'b01011: begin // rol
 				result_lo = rotate_left_result; 
-				result_hi <= 32'b0;
+				result_hi <= 31'b0;
 			end
 			5'b01111: begin // mul
-				result_hi =  32'hFFFF0000 & (a * b);
-				result_lo =  32'hFFFF & (a * b);
+				c <= a * b;
 			end
 			5'b10000: begin //div
 				result_lo = divide_result_lo;
@@ -68,10 +68,9 @@ module alu(input wire [31:0] a, b, y, input [4:0] op_code, output wire [63:0] c)
 				result_lo <= ~b;
 				result_hi <= 32'b0;
 			end
-			default: begin// for operations we haven't written yet as of phase 1
+			default: // for operations we haven't written yet as of phase 1
 				result_hi <= 32'b0;
 				result_lo <= 32'b0;
-			end
 		endcase
 	end
 endmodule
