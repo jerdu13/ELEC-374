@@ -1,10 +1,9 @@
 module mul_32_bit(input signed [31:0] x, y, output [63:0] rslt);
-	
-	/* x -> multiplicand
+	/*
+		x -> multiplicand
 		y -> multiplier
-	
-	
 	*/
+	
 	reg[63:0] product;
 	reg[2:0] pairs[15:0]; // Array to hold bit pairs and bit-to-right of multiplier for recoding.
 	reg[31:0] pp[15:0];	// Partial products
@@ -33,17 +32,15 @@ module mul_32_bit(input signed [31:0] x, y, output [63:0] rslt);
 				3'b110 : pp[i] = x_comp;
 				default : pp[i] = 0;
 			endcase
-			
 			spp[i] = $signed(pp[i]);
+			
+			for(j = 0; i < j; i = i+1)
+				spp[i] = {spp[i], 2'b00}; // Shift partial products appropriately for addition
 		end
 		
 		product = 32'b0;
-		
 		for(j = 0; j < 16; j = j+1)
-		begin
-			spp[j] = {spp[j], 2'b00};
-			product = product + spp[j];
-		end			
+			product = product + spp[j];			
 	end
 	
 	assign rslt = product;
