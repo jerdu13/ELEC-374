@@ -8,9 +8,9 @@ module and_tb;
 	reg Clock, MDRread, IncPC;
 	reg [4:0] OP;
 	reg [31:0] MDatain;
-	reg [31:0] BusMuxOut;
+	wire [31:0] BusMuxOut;
 	
-	reg [63:0] Zreg;
+	wire [63:0] Zreg;
 	
 	parameter 	Default = 4'b0000, Reg_load1a = 4'b0001, Reg_load1b = 4'b0010, Reg_load2a = 4'b0011,
 					Reg_load2b = 4'b0100, Reg_load3a = 4'b0101, Reg_load3b = 4'b0110, T0 = 4'b0111,

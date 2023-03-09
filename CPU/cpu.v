@@ -18,16 +18,12 @@ module cpu(input 	R0_enable, R1_enable, R2_enable, R3_enable, R4_enable, R5_enab
 	
 	wire clr;
 	wire IR_out;
-	wire [31:0] Y_data; //, Z_low_data, Z_high_data;
-	
-	wire [63:0] alu_C_out;
+	wire [31:0] Y_data; //
 	
 	// mux inputs (reg outputs) for 32-to-5 MUX
 	wire [31:0] mux_in_r0, mux_in_r1, mux_in_r2, mux_in_r3, mux_in_r4, mux_in_r5, mux_in_r6, mux_in_r7,
 				mux_in_r8, mux_in_r9, mux_in_r10, mux_in_r11, mux_in_r12, mux_in_r13, mux_in_r14, mux_in_r15,
 				mux_in_HI, mux_in_LO, mux_in_Z_high, mux_in_Z_low, mux_in_PC, mux_in_MDR, mux_in_inport, C_sign_extended, mux_in_IR, mux_in_MAR;
-	
-	assign Z_register = {mux_in_Z_high,mux_in_Z_low};
 	
 	full_bus bus( 	R0out, R1out, R2out, R3out, R4out, R5out, R6out, R7out, R8out, R9out,
 					R10out, R11out, R12out, R13out, R14out, R15out, HIout, LOout, Zhighout,
@@ -70,8 +66,8 @@ module cpu(input 	R0_enable, R1_enable, R2_enable, R3_enable, R4_enable, R5_enab
 	register r_lo(clr, clk, LO_enable, bus_out, mux_in_LO);
 	
 	//two registers for 64 bit z register
-	register r_zhigh(clr, clk, Zhigh_enable, alu_C_out[63:32], mux_in_Z_high);
-	register r_zlow(clr, clk, Zlow_enable, alu_C_out[31:0], mux_in_Z_low);
+	register r_zhigh(clr, clk, Zhigh_enable, Z_register[63:32], mux_in_Z_high);
+	register r_zlow(clr, clk, Zlow_enable, Z_register[31:0], mux_in_Z_low);
 	
 	// instruction register
 	register ir(clr, clk, IR_enable, bus_out, mux_in_IR);
@@ -92,7 +88,7 @@ module cpu(input 	R0_enable, R1_enable, R2_enable, R3_enable, R4_enable, R5_enab
 	// memort address register
 	register mar(clk, clr, MAR_enable, bus_out, mux_in_MAR);
 	
-	alu arithmetic(bus_out, bus_out, Y_data, Mdatain[31:27], alu_C_out);
+	alu arithmetic(bus_out, bus_out, Y_data, Mdatain[31:27], Z_register);
 	
 	
 endmodule
