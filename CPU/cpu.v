@@ -30,9 +30,6 @@ module cpu(input 	R0_enable, R1_enable, R2_enable, R3_enable, R4_enable, R5_enab
 	wire [31:0] bus_out;
 	
 	wire [63:0] alu_C_out;
-	assign mux_in_Z_high = alu_C_out[63:32];
-	assign mux_in_Z_low = alu_C_out[31:0];
-	assign Z_register = {mux_in_Z_high, mux_in_Z_low};
 	
 	full_bus bus( 	R0out, R1out, R2out, R3out, R4out, R5out, R6out, R7out, R8out, R9out,
 					R10out, R11out, R12out, R13out, R14out, R15out, HIout, LOout, Zhighout,
@@ -75,8 +72,8 @@ module cpu(input 	R0_enable, R1_enable, R2_enable, R3_enable, R4_enable, R5_enab
 	register r_lo(clr, clk, LO_enable, bus_out, mux_in_LO);
 	
 	//two registers for 64 bit z register
-	register r_zhigh(clr, clk, Zhigh_enable, bus_out, mux_in_Z_high);
-	register r_zlow(clr, clk, Zlow_enable, bus_out, mux_in_Z_low);
+	register r_zhigh(clr, clk, Zhigh_enable, alu_C_out[63:32], mux_in_Z_high);
+	register r_zlow(clr, clk, Zlow_enable, alu_C_out[31:0], mux_in_Z_low);
 	
 	// instruction register
 	register ir(clr, clk, IR_enable, bus_out, IR_out);
@@ -88,12 +85,16 @@ module cpu(input 	R0_enable, R1_enable, R2_enable, R3_enable, R4_enable, R5_enab
 	register y(clr, clk, Y_enable, bus_out, Y_data);
 	
 	// memory data register
-	mdr mdr_register(clk, clr, MDR_enable, MDR_read, bus_out, Mdatain, MDRout); // MDRin -> write enable, read -> acts as select
+	wire [31:0] md_mux_out;	// Takes on value of bus_mux_out or mem_data_in
+	mux_2_to_1 mux(mem_data_in, bus_mux_out, read, mdr_mux_out); // 2-to-1 mux selects either the input from the memory unit or the bus
+	register mdr_reg(.clr(clr), .clk(clk), .wrt_enable(MDR_enable), .D(md_mux_out_temp), .Q(mdr_out)); // Instantiate the register depending on the selected input from the mux
+	
+	//mdr mdr_register(clk, clr, MDR_enable, MDR_read, bus_out, Mdatain, MDRout); // MDRin -> write enable, read -> acts as select
 	
 	// memort address register
 	register mar(clk, clr, MAR_enable, bus_out, mux_in_MAR);
 	
-	alu arithmetic(bus_out, bus_out, Y_data, Mdatain[31:27], Z_register);
+	alu arithmetic(bus_out, bus_out, Y_data, Mdatain[31:27], alu_C_out);
 	
 	
 endmodule

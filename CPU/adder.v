@@ -27,6 +27,8 @@ module adder_4(input wire [3:0] a, b, input wire carry_in, output wire [3:0] res
 	assign carry[2] = gen_signal[1] | (prop_signal[1] & gen_signal[0]) | (prop_signal[1] & prop_signal[0] & gen_signal[0]);
 	assign carry[3] = gen_signal[2] | (prop_signal[2] & gen_signal[1]) | (prop_signal[2] & prop_signal[1] & gen_signal[0]) | (prop_signal[2] & prop_signal[1] & prop_signal[0] & gen_signal[0]);
 	
+	
 	assign result[3:0] = prop_signal ^ carry; 
 	assign carry_out = gen_signal[3] | (prop_signal[3] & gen_signal[2]) | (prop_signal[3] & prop_signal[2] & gen_signal[1]) | (prop_signal[3] & prop_signal[2] & prop_signal[1] & gen_signal[0]) | (prop_signal[3] & prop_signal[2] & prop_signal[1] & prop_signal[0] & gen_signal[0]);
+	
 endmodule
