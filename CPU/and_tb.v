@@ -1,6 +1,6 @@
 // and datapath_tb.v file: <This is the filename>
 `timescale 1ns/10ps
-module datapath_tb;
+module and_tb;
 	reg R1in, R2in, R3in, R4in, R5in, R6in, R7in, R8in, R9in, R10in, R11in, R12in, R13in, R14in, R15in;
 	reg R1out, R2out, R3out, R4out, R5out, R6out, R7out, R8out, R9out, R10out, R11out, R12out, R13out, R14out, R15out;
 	reg PCin, HIin, LOin, ZHIin, ZLOin, MDRin, Inportin, Cin, IRin, Yin, MARin;
@@ -10,6 +10,7 @@ module datapath_tb;
 	reg [31:0] MDatain;
 	reg [31:0] BusMuxOut;
 	
+	reg [63:0] Zreg;
 	
 	parameter 	Default = 4'b0000, Reg_load1a = 4'b0001, Reg_load1b = 4'b0010, Reg_load2a = 4'b0011,
 					Reg_load2b = 4'b0100, Reg_load3a = 4'b0101, Reg_load3b = 4'b0110, T0 = 4'b0111,
@@ -26,7 +27,7 @@ cpu DUT(.R0_enable(R1in), .R1_enable(R1in), .R2_enable(R2in), .R3_enable(R3in), 
 					
 					.clk(Clock), .MDR_read(MDRread), .pcInc(IncPC), 
 					
-					.Mdatain(Mdatain), .op_code(OP), .busmuxout(BusMuxOut), .Z_register(Zreg));
+					.Mdatain(MDatain), .op_code(OP), .bus_out(BusMuxOut), .Z_register(Zreg));
 
 
 // add test logic here
