@@ -6,19 +6,16 @@ module mul_32_bit(input signed [31:0] x, y, output [63:0] rslt);
 	
 	reg[63:0] product;
 	reg[2:0] pairs[15:0]; // Array to hold bit pairs and bit-to-right of multiplier for recoding.
-	reg[31:0] pp[15:0];	// Partial products
+	reg[32:0] pp[15:0];	// Partial products
 	reg[63:0] spp[15:0]; // Signed partial products
-	wire[31:0] x_comp;
+	wire[32:0] x_comp;
 	
 	assign x_comp = {~x[31], ~x} + 1; // Two's complement of multiplicand x
 	integer i, j;
 	
-	
-	initial begin
-		pairs[0] = {y[1], y[0], 1'b0};
-	end
-	
 	always @(x or y or x_comp) begin
+		pairs[0] = {y[1], y[0], 1'b0};
+		
 		for(i = 1; i < 16; i = i+1)
 		begin
 			pairs[i] = {y[2*i + 1], y[2*i], y[2*i - 1]};
