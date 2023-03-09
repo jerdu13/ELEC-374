@@ -1,6 +1,7 @@
 module alu(input wire [31:0] a, b, y, input [4:0] op_code, output wire [63:0] c); //, output reg overflow);
 	reg [31:0] result_hi, result_lo;
 	wire [31:0] add_result, sub_result, rotate_left_result, rotate_right_result, negate_result, divide_result_hi, divide_result_lo;
+	wire [63:0] mul_result;
 	wire add_carry, sub_carry;
 	assign c = {result_hi, result_lo};
 	
@@ -10,7 +11,7 @@ module alu(input wire [31:0] a, b, y, input [4:0] op_code, output wire [63:0] c)
 	divider divide_circuit(y, b, divide_result_lo, divide_result_hi);
 	rotate_right rot_right(y, b, rotate_right_result);
 	rotate_left rot_left(y, b, rotate_left_result);
-	
+	mul_32_bit multiply(y, b, mul_result);
 	
 	always @ (*) begin
 		//overflow <= 1'b0;
@@ -54,8 +55,8 @@ module alu(input wire [31:0] a, b, y, input [4:0] op_code, output wire [63:0] c)
 				result_hi <= 32'b0;
 			end
 			5'b01111: begin // mul
-				result_hi =  32'hFFFF0000 & (a * b);
-				result_lo =  32'hFFFF & (a * b);
+				result_hi =  mul_result[63:32];
+				result_lo =  mul_result[31:0];
 			end
 			5'b10000: begin //div
 				result_lo = divide_result_lo;
