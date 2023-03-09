@@ -96,28 +96,34 @@ always @(Present_state) // do the required job in each state
 			end
 
 			T0: begin // see if you need to de-assert these signals
-				PCout <= 1; MARin <= 1; IncPC <= 1; ZLOin <= 1;
+				#10 MARin <= 1; IncPC <= 1; //ZLOin <= 1; PCout <= 1; I MADE A PC MODULE THAT DOESNT NEED THE ALU, SO NO NEED FOR THIS STUFF
+				#15 MARin <= 0; IncPC <= 0; //ZLOin <= 0; PCout <= 0;
 			end
 
 			T1: begin
-				ZLOout <= 1; PCin <= 1; MDRread <= 1; MDRin <= 1;
 				MDatain <= 32'h28918000; // opcode for “and R1, R2, R3”
+				#10 MDRread <= 1; MDRin <= 1; //ZLOout <= 1; PCin <= 1; 
+				#15 MDRread <= 0; MDRin <= 0; //ZLOout <= 0; PCout <= 0; IncPC <= 0;
 			end
 			
 			T2: begin
-				MDRout <= 1; IRin <= 1;
+				#10 MDRout <= 1; IRin <= 1;
+				#15 MDRout <= 0; IRin <= 0;
 			end
 			
 			T3: begin
-				R2out <= 1; Yin <= 1;
+				#10 R2out <= 1; Yin <= 1;
+				#15 R2out <= 0; Yin <= 0;
 			end
 
 			T4: begin
-				R3out <= 1; OP <= 5'b00101; ZLOin <= 1;
+				#10 R3out <= 1; OP <= 5'b00101; ZLOin <= 1;
+				#15 R3out <= 0; OP <= 5'b00000; ZLOin <= 0;
 			end
 
 			T5: begin
-				ZLOout <= 1; R1in <= 1;
+				#10 ZLOout <= 1; R1in <= 1;
+				#15 ZLOout <= 0; R1in <= 0;
 			end
 		endcase
 
