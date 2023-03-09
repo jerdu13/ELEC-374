@@ -53,51 +53,30 @@ module divider(input wire signed [31:0] a, b, output reg signed [63:0] result);
 	end
 endmodule
 */
-module divider(divisor, dividend, remainder, result);
+module divider(input wire [31:0] a, b, output reg [31:0] remainder, result);
 
-input [31:0] divisor, dividend;
-output reg [31:0] result, remainder;
-
-// Variables
 integer i;
-reg [31:0] divisor_copy, dividend_copy;
-reg [31:0] temp;
+reg [31:0] M, Q, temp;
 
-always @(divisor or dividend)
+always @(b or a)
 begin
-	divisor_copy = divisor;
-	dividend_copy = dividend;
+	M = b;
+	Q = a;
 	temp = 0; 
-	for(i = 0;i < 32;i = i + 1)
-	begin
-		temp = {temp[30:0], dividend_copy[31]};
-		dividend_copy[31:1] = dividend_copy[30:0];
-		/*
-			* Substract the Divisor Register from the Remainder Register and
-			* plave the result in remainder register (temp variable here!)
-		*/
-		temp = temp - divisor_copy;
-		// Compare the Sign of Remainder Register (temp)
-		if(temp[31] == 1)
-		begin
-		/*
-			* Restore original value by adding the Divisor Register to the
-			* Remainder Register and placing the sum in Remainder Register.
-			* Shift Quatient by 1 and Add 0 to last bit.
-		*/
-			dividend_copy[0] = 0;
-			temp = temp + divisor_copy;
-		end
-		else
-		begin
-		/*
-			* Shift Quatient to left.
-			* Set right most bit to 1.
-		*/
-			dividend_copy[0] = 1;
+	for(i = 0;i < 32;i = i + 1) begin
+		temp = {temp[30:0], Q[31]};
+		Q[31:1] = Q[30:0];
+		temp = temp - M;
+		
+		if(temp[31] == 1) begin
+			Q[0] = 0;
+			temp = temp + M;
+		end else begin
+			Q[0] = 1;
 		end
 	end
-	result = dividend_copy;
-	remainder = dividend - (divisor_copy*dividend_copy);
+	
+	result = Q;
+	remainder = a - (M*Q);
 end
 endmodule
