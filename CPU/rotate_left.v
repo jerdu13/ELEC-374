@@ -1,8 +1,9 @@
 module rotate_left(input wire [31:0] a, b, output reg [31:0] result);
 	reg [4:0] bits;
-	
+
 	always @(*) begin
-		bits = a % 32; // this tells us how many bits to rotate by (because we don't actually need to rotate b times, that would be redundant for b > 32)
+		bits <= b % 32; // this tells us how many bits to rotate by (because we don't actually need to rotate b times, that would be redundant for b > 32)
+		
 		case (bits)
 			5'b00000:
 				result <= a;
@@ -70,7 +71,7 @@ module rotate_left(input wire [31:0] a, b, output reg [31:0] result);
 				result <= {a[0],a[31:1]};
 			default:
 				result <= 32'bx;	
-		endcase
+		endcase 
 	end
 		
 endmodule

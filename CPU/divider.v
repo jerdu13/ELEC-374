@@ -1,7 +1,8 @@
+/*
 // non restoring
-module divider(input signed [31:0] a, b, output reg [31:0] quotient, remainder);
-	reg [63:0] result;
-	reg [31:0] M;
+module divider(input wire signed [31:0] a, b, output reg signed [63:0] result);
+	//reg signed [63:0] result;
+	reg signed [31:0] M;
 	
 	
 	
@@ -9,12 +10,12 @@ module divider(input signed [31:0] a, b, output reg [31:0] quotient, remainder);
 	integer i;
 	
 	always @(*) begin
-		result <= 64'b0 | a[31:0];
+		result <= {32'b0,a[31:0]};
 		M <= b;
 		
 		if (a < 0 && b < 0) begin
 			negative_operands <= 2'b11;
-			M <= ~M + 1;
+			M <= -1 * M;
 			result <= {32'b0, ~result[31:0] + 1};
 		end else if (a < 0) begin
 			negative_operands <= 2'b10;
@@ -47,7 +48,56 @@ module divider(input signed [31:0] a, b, output reg [31:0] quotient, remainder);
 		if (negative_operands == 2'b10 || negative_operands == 2'b01)
 			result <= {result[63:32], ~result[31:0] + 1};
 		
-		quotient <= result[31:0];
-		remainder <= result[63:32];
+		//quotient <= result[31:0];
+		//remainder <= result[63:32];
 	end
+endmodule
+*/
+module divider(divisor, dividend, remainder, result);
+
+input [31:0] divisor, dividend;
+output reg [31:0] result, remainder;
+
+// Variables
+integer i;
+reg [31:0] divisor_copy, dividend_copy;
+reg [31:0] temp;
+
+always @(divisor or dividend)
+begin
+	divisor_copy = divisor;
+	dividend_copy = dividend;
+	temp = 0; 
+	for(i = 0;i < 32;i = i + 1)
+	begin
+		temp = {temp[30:0], dividend_copy[31]};
+		dividend_copy[31:1] = dividend_copy[30:0];
+		/*
+			* Substract the Divisor Register from the Remainder Register and
+			* plave the result in remainder register (temp variable here!)
+		*/
+		temp = temp - divisor_copy;
+		// Compare the Sign of Remainder Register (temp)
+		if(temp[31] == 1)
+		begin
+		/*
+			* Restore original value by adding the Divisor Register to the
+			* Remainder Register and placing the sum in Remainder Register.
+			* Shift Quatient by 1 and Add 0 to last bit.
+		*/
+			dividend_copy[0] = 0;
+			temp = temp + divisor_copy;
+		end
+		else
+		begin
+		/*
+			* Shift Quatient to left.
+			* Set right most bit to 1.
+		*/
+			dividend_copy[0] = 1;
+		end
+	end
+	result = dividend_copy;
+	remainder = dividend - (divisor_copy*dividend_copy);
+end
 endmodule

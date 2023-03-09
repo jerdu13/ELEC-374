@@ -2,13 +2,14 @@ module alu(input wire [31:0] a, b, y, input [4:0] op_code, output wire [63:0] c)
 	reg [31:0] result_hi, result_lo;
 	wire [31:0] add_result, sub_result, rotate_left_result, rotate_right_result, negate_result, divide_result_hi, divide_result_lo;
 	wire [63:0] mul_result;
+	//wire [63:0] div_result;
 	wire add_carry, sub_carry;
 	assign c = {result_hi, result_lo};
 	
 	adder_32 adder_circuit(y, b, {1'b0}, add_result, add_carry);
 	negate negate_circuit(b, negate_result);
 	subtractor subtractor_circuit(y, b, 1'b0, sub_result, sub_carry);
-	divider divide_circuit(y, b, divide_result_lo, divide_result_hi);
+	divider divide_circuit(y, b, divide_result_hi, divide_result_lo);
 	rotate_right rot_right(y, b, rotate_right_result);
 	rotate_left rot_left(y, b, rotate_left_result);
 	mul_32_bit multiply(y, b, mul_result);

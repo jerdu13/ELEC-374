@@ -5,7 +5,7 @@ module negate(input wire [31:0] a, output wire [31:0] result);
 	wire carry_in;
 	wire carry_out; // required for adder circuit, but effectively does nothing
 	
-	assign not_a = ~a + 1;
+	assign not_a = ~a;
 	assign one = 32'b0;
 	assign carry_in = 1'b0;
 	adder_32 add_one(not_a, one, carry_in, result, carry_out);
