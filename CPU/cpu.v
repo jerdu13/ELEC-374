@@ -28,8 +28,10 @@ module cpu(input 	R0_enable, R1_enable, R2_enable, R3_enable, R4_enable, R5_enab
 				
 	// MUX output
 	wire [31:0] bus_out;
+	assign busmuxout = bus_out;
 	
 	wire [63:0] alu_C_out;
+	assign Z_register = alu_C_out;
 	
 	full_bus bus( 	R0out, R1out, R2out, R3out, R4out, R5out, R6out, R7out, R8out, R9out,
 					R10out, R11out, R12out, R13out, R14out, R15out, HIout, LOout, Zhighout,
