@@ -1,6 +1,6 @@
 // and datapath_tb.v file: <This is the filename>
 `timescale 1ns/10ps
-module and_tb;
+module ror_tb;
 	reg R0in, R1in, R2in, R3in, R4in, R5in, R6in, R7in, R8in, R9in, R10in, R11in, R12in, R13in, R14in, R15in;
 	reg R0out, R1out, R2out, R3out, R4out, R5out, R6out, R7out, R8out, R9out, R10out, R11out, R12out, R13out, R14out, R15out;
 	reg PCin, HIin, LOin, ZHIin, ZLOin, MDRin, Inportin, Cin, IRin, Yin, MARin;
@@ -61,10 +61,10 @@ always @(Present_state) // do the required job in each state
 		case (Present_state) // assert the required signals in each clock cycle
 			Default: begin
 				PCout <= 0; ZLOout <= 0; MDRout <= 0; // initialize the signals
-				R2out <= 0; R3out <= 0; MARin <= 0; ZLOin <= 0;
+				R6out <= 0; R4out <= 0; MARin <= 0; ZLOin <= 0;
 				PCin <=0; MDRin <= 0; IRin <= 0; Yin <= 0;
 				IncPC <= 0; MDRread <= 0; OP <= 0;
-				R1in <= 0; R2in <= 0; R3in <= 0; MDatain <= 32'h00000000;
+				R6in <= 0; R4in <= 0; MDatain <= 32'h00000000;
 			end
 			Reg_load1a: begin
 				MDatain <= 32'h00000012;
@@ -73,8 +73,8 @@ always @(Present_state) // do the required job in each state
 				#10 MDRread <= 0; MDRin <= 0;
 			end
 			Reg_load1b: begin
-				#10 MDRout <= 1; R2in <= 1;
-				#10 MDRout <= 0; R2in <= 0; // initialize R2 with the value $12
+				#10 MDRout <= 1; R6in <= 1;
+				#10 MDRout <= 0; R6in <= 0; // initialize R2 with the value $12
 			end
 			Reg_load2a: begin
 				MDatain <= 32'h00000014;
@@ -82,8 +82,8 @@ always @(Present_state) // do the required job in each state
 				#10 MDRread <= 0; MDRin <= 0;
 			end
 			Reg_load2b: begin
-				#10 MDRout <= 1; R3in <= 1;
-				#10 MDRout <= 0; R3in <= 0; // initialize R3 with the value $14
+				#10 MDRout <= 1; R4in <= 1;
+				#10 MDRout <= 0; R4in <= 0; // initialize R3 with the value $14
 			end
 			Reg_load3a: begin
 				MDatain <= 32'h00000018;
@@ -91,8 +91,8 @@ always @(Present_state) // do the required job in each state
 				#10 MDRread <= 0; MDRin <= 0;
 			end
 			Reg_load3b: begin
-				#10 MDRout <= 1; R1in <= 1;
-				#10 MDRout <= 0; R1in <= 0; // initialize R1 with the value $18
+				#10 MDRout <= 1; //R1in <= 1;
+				#10 MDRout <= 0; //R1in <= 0; // initialize R1 with the value $18
 			end
 
 			T0: begin // see if you need to de-assert these signals
@@ -101,7 +101,7 @@ always @(Present_state) // do the required job in each state
 			end
 
 			T1: begin
-				MDatain <= 32'h28918000; // opcode for “and R1, R2, R3”
+				MDatain <= 32'h53320000; // opcode for “ror r6, r6, r4”
 				#10 MDRread <= 1; MDRin <= 1; ZLOout <= 1; PCin <= 1; 
 				#10 MDRread <= 0; MDRin <= 0; ZLOout <= 0; PCin <= 0; IncPC <= 0;
 			end
@@ -112,18 +112,18 @@ always @(Present_state) // do the required job in each state
 			end
 			
 			T3: begin
-				#10 R2out <= 1; Yin <= 1;
-				#10 R2out <= 0; Yin <= 0;
+				#10 R6out <= 1; Yin <= 1;
+				#10 R6out <= 0; Yin <= 0;
 			end
 
 			T4: begin
-				#10 R3out <= 1; OP <= 5'b00101; ZLOin <= 1;
-				#10 R3out <= 0; OP <= 5'b00000; ZLOin <= 0;
+				#10 R4out <= 1; OP <= 5'b01010; ZLOin <= 1;
+				#10 R4out <= 0; OP <= 5'b00000; ZLOin <= 0;
 			end
 
 			T5: begin
-				#10 ZLOout <= 1; R1in <= 1;
-				#10 ZLOout <= 0; R1in <= 0;
+				#10 ZLOout <= 1; R6in <= 1;
+				#10 ZLOout <= 0; R6in <= 0;
 			end
 		endcase
 

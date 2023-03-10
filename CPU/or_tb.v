@@ -1,6 +1,6 @@
 // and datapath_tb.v file: <This is the filename>
 `timescale 1ns/10ps
-module and_tb;
+module or_tb;
 	reg R0in, R1in, R2in, R3in, R4in, R5in, R6in, R7in, R8in, R9in, R10in, R11in, R12in, R13in, R14in, R15in;
 	reg R0out, R1out, R2out, R3out, R4out, R5out, R6out, R7out, R8out, R9out, R10out, R11out, R12out, R13out, R14out, R15out;
 	reg PCin, HIin, LOin, ZHIin, ZLOin, MDRin, Inportin, Cin, IRin, Yin, MARin;
@@ -101,7 +101,7 @@ always @(Present_state) // do the required job in each state
 			end
 
 			T1: begin
-				MDatain <= 32'h28918000; // opcode for “and R1, R2, R3”
+				MDatain <= 32'h30918000; // opcode for “or R1, R2, R3”
 				#10 MDRread <= 1; MDRin <= 1; ZLOout <= 1; PCin <= 1; 
 				#10 MDRread <= 0; MDRin <= 0; ZLOout <= 0; PCin <= 0; IncPC <= 0;
 			end
@@ -117,7 +117,7 @@ always @(Present_state) // do the required job in each state
 			end
 
 			T4: begin
-				#10 R3out <= 1; OP <= 5'b00101; ZLOin <= 1;
+				#10 R3out <= 1; OP <= 5'b00110; ZLOin <= 1;
 				#10 R3out <= 0; OP <= 5'b00000; ZLOin <= 0;
 			end
 

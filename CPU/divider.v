@@ -53,7 +53,7 @@ module divider(input wire signed [31:0] a, b, output reg signed [63:0] result);
 	end
 endmodule
 */
-module divider(input wire [31:0] a, b, output reg [31:0] remainder, result);
+module divider(input wire [31:0] a, b, output reg [31:0] remainder, quotient);
 
 integer i;
 reg [31:0] M, Q, temp;
@@ -76,7 +76,7 @@ begin
 		end
 	end
 	
-	result = Q;
-	remainder = a - (M*Q);
+	quotient = Q;
+	remainder = temp;
 end
 endmodule
