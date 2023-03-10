@@ -108,7 +108,7 @@ always @(Present_state) // do the required job in each state
 
 			T4: begin
 				#10 R7out <= 1; OP <= 5'b10000; ZLOin <= 1; ZHIin <= 1;
-				#10 R7out <= 0; OP <= 5'b00000; ZLOin <= 0; ZHIin <= 1;
+				#10 R7out <= 0; OP <= 5'b00000; ZLOin <= 0; ZHIin <= 0;
 			end
 
 			T5: begin

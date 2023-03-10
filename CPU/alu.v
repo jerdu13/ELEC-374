@@ -40,7 +40,7 @@ module alu(input wire [31:0] a, b, y, input [4:0] op_code, output wire [63:0] c)
 				result_hi <= 32'b0;
 			end
 			5'b01000: begin // shra
-				result_lo <= y >>> b;
+				result_lo <= $signed(y) >>> $signed(b);
 				result_hi <= 32'b0;
 			end
 			5'b01001: begin // shl
