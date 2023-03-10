@@ -56,8 +56,8 @@ module alu(input wire [31:0] a, b, y, input [4:0] op_code, output wire [63:0] c)
 				result_hi <= 32'b0;
 			end
 			5'b01111: begin // mul
-				result_hi =  mul_result[63:32];
-				result_lo =  mul_result[31:0];
+				result_hi <=  ~mul_result[63:32];
+				result_lo <=  mul_result[31:0];
 			end
 			5'b10000: begin //div
 				result_lo = divide_result_lo;
