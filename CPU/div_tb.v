@@ -66,7 +66,7 @@ always @(Present_state) // do the required job in each state
 				R6in <= 0; R7in <= 0; MDatain <= 32'h00000000;
 			end
 			Reg_load1a: begin
-				MDatain <= 32'h00000012;
+				MDatain <= 32'hFFFFFFF8;
 				MDRread = 0; MDRin = 0; // the first zero is there for completeness
 				#10 MDRread <= 1; MDRin <= 1;
 				#10 MDRread <= 0; MDRin <= 0;
@@ -76,7 +76,7 @@ always @(Present_state) // do the required job in each state
 				#10 MDRout <= 0; R6in <= 0; // initialize R2 with the value $12
 			end
 			Reg_load2a: begin
-				MDatain <= 32'h00000014;
+				MDatain <= 32'h00000003;
 				#10 MDRread <= 1; MDRin <= 1;
 				#10 MDRread <= 0; MDRin <= 0;
 			end
