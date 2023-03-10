@@ -1,7 +1,7 @@
 // and datapath_tb.v file: <This is the filename>
 `timescale 1ns/10ps
 module or_tb;
-	reg R1in, R2in, R3in, R4in, R5in, R6in, R7in, R8in, R9in, R10in, R11in, R12in, R13in, R14in, R15in;
+	reg R0in, R1in, R2in, R3in, R4in, R5in, R6in, R7in, R8in, R9in, R10in, R11in, R12in, R13in, R14in, R15in;
 	reg R1out, R2out, R3out, R4out, R5out, R6out, R7out, R8out, R9out, R10out, R11out, R12out, R13out, R14out, R15out;
 	reg PCin, HIin, LOin, ZHIin, ZLOin, MDRin, Inportin, Cin, IRin, Yin, MARin;
 	reg PCout, HIout, LOout, ZHIout, ZLOout, MDRout, Inportout, Cout;
@@ -17,7 +17,7 @@ module or_tb;
 					T1 = 4'b1000, T2 = 4'b1001, T3 = 4'b1010, T4 = 4'b1011, T5 = 4'b1100;
 	reg [3:0] Present_state = Default;
 
-cpu DUT(.R0_enable(R1in), .R1_enable(R1in), .R2_enable(R2in), .R3_enable(R3in), .R4_enable(R4in), .R5_enable(R5in), .R6_enable(R6in), .R7_enable(R7in), .R8_enable(R8in), 
+cpu DUT(.R0_enable(R0in), .R1_enable(R1in), .R2_enable(R2in), .R3_enable(R3in), .R4_enable(R4in), .R5_enable(R5in), .R6_enable(R6in), .R7_enable(R7in), .R8_enable(R8in), 
 					.R9_enable(R9in), .R10_enable(R10in), .R11_enable(R11in), .R12_enable(R12in), .R13_enable(R13in), .R14_enable(R14in), .R15_enable(R15in), .HI_enable(HIin), .LO_enable(LOin),
 					.Zhigh_enable(ZHIin), .Zlow_enable(ZLOin), .PC_enable(PCin), .MDR_enable(MDRin), .Inport_enable(Inportin), .C_enable(Cin), .IR_enable(IRin), .Y_enable(Yin), .MAR_enable(MARin),
 					
